@@ -1,8 +1,21 @@
 <p id="notice"><%= notice %></p>
 
+
+<% if current_user.role == 'admin' %>
+	<p>
+		<strong>First Name</strong>
+		<%=  @account.user.first_name %>
+	</p>
+
+	<p>
+		<strong>Last Name</strong>
+		<%=  @account.user.last_name %>
+	</p>
+<% end %>
+
 <p>
-  <strong>User:</strong>
-  <%= @account.user_id %>
+  <strong>Account Number:</strong>
+  <%= @account.id %>
 </p>
 
 <p>
@@ -15,5 +28,7 @@
   <%= @account.account_type %>
 </p>
 
-<%= link_to 'Edit', edit_account_path(@account) %> |
-<%= link_to 'Back', accounts_path %>
+
+<p><%= link_to "Make A Deposit", deposit_path(id: @account.id), class: 'btn btn-success' %> | <%= link_to "Make A Withdrawal", withdrawal_path(id: @account.id), class: 'btn btn-warning' %></p>
+
+<p><%= link_to 'Back to Dashboard', root_path, class: 'btn btn-info' %></p>
