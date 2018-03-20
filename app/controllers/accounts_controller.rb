@@ -34,6 +34,7 @@ class AccountsController < ApplicationController
     overdraft = false
     @account = Account.find(params[:id])
     current_balance = @account.balance
+    
     if params[:transaction] == "deposit"
       @account.update(balance: current_balance + params[:balance].to_f)
     else
