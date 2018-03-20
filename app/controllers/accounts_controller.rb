@@ -4,6 +4,7 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
+    authorize! :destroy, @accounts
     @accounts = Account.all
   end
 
@@ -15,19 +16,23 @@ class AccountsController < ApplicationController
 
   # GET /accounts/new
   def new
+    authorize! :create, @account
     @account = Account.new
   end
 
   # GET /accounts/1/edit
   def edit
+    authorize! :update, @account
   end
 
   def deposit
+    authorize! :update, @current_account
     @current_account = Account.find(params[:id])
   end
   
 
   def withdrawal
+    authorize! :update, @current_account
     @current_account = Account.find(params[:id])
   end  
 
@@ -58,6 +63,7 @@ class AccountsController < ApplicationController
   # POST /accounts
   # POST /accounts.json
   def create
+    authorize! :create, @account
     @account = Account.new(account_params)
 
     respond_to do |format|
@@ -88,6 +94,7 @@ class AccountsController < ApplicationController
   # DELETE /accounts/1
   # DELETE /accounts/1.json
   def destroy
+    authorize! :destroy, @account
     @account.destroy
     respond_to do |format|
       format.html { redirect_to accounts_url, notice: 'Account was successfully destroyed.' }

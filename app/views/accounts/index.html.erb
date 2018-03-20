@@ -15,11 +15,10 @@
   <tbody>
     <% @accounts.each do |account| %>
       <tr>
-        <td><%= account.user_id %></td>
+        <td><%= account.user.first_name %> <%= account.user.last_name %></td>
         <td><%= account.balance %></td>
         <td><%= account.account_type %></td>
         <td><%= link_to 'Show', account %></td>
-        <td><%= link_to 'Edit', edit_account_path(account) %></td>
         <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -28,4 +27,3 @@
 
 <br>
 
-<%= link_to 'New Account', new_account_path %>
