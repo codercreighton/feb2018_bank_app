@@ -30,7 +30,7 @@
 	    	<% end %>	
         <td><%= number_to_currency account.balance %></td>
         <td><%= account.account_type %></td>
-        <td><%= link_to 'Show', account %></td>
+        <td><%= link_to 'Transactions', account, class: 'btn btn-primary' %></td>
       </tr>
     <% end %>
   </tbody>
