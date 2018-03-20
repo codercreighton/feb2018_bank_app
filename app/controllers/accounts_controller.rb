@@ -54,8 +54,12 @@ class AccountsController < ApplicationController
     if overdraft == true
       redirect_to root_path, notice: "Withdrawal amount of $#{'%.2f' % params[:balance]} exceeds the current balance of $#{current_balance}. Please enter a different amount."
     else 
-      redirect_to root_path, notice: "Your #{params[:transaction]} of $#{'%.2f' % params[:balance]} has been made to account number #{@account.id}."  
+      AccountMailer.update_email(current_user, @account, params[:transaction], params[:balance], current_balance).deliver_now
+
+      redirect_to root_path, notice: "Your #{params[:transaction]} of $#{'%.2f' % params[:balance]} has been made to account number #{@account.id}." 
+
     end
+
   end  
 
 
@@ -68,6 +72,8 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
+        AccountMailer.welcome_email(current_user, @account).deliver_now
+
         format.html { redirect_to root_path, notice: 'Account was successfully created.' }
         format.json { render :show, status: :created, location: @account }
       else
