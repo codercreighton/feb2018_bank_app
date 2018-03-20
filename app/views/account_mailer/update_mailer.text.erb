@@ -5,7 +5,7 @@ Thank you for banking at BankAndTrust.com, <%= @user.first_name %>
  
 	 	Your account info is as follows: 
 	 	------------------------------------
-	 	Transaction Date: <%= @account.updated_at %>
+	 	Transaction Date: <%= @account.updated_at.strftime("%B %d, %Y  %I:%M:%S %P") %>
 		Account Number: <%= @account.id  %>
 		Account Type: <%= @account.account_type %>
 		Transaction Type: <%= @transaction %>

@@ -26,6 +26,7 @@ gem 'font-awesome-rails'
 gem 'better_errors'
 gem 'binding_of_caller'
 gem 'figaro'
+gem 'local_time'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

@@ -4,7 +4,7 @@
 
  	<div>
 	 	<h3>Your account info is as follows: </h3>
-	 	<p>Transaction Date: <%= @account.updated_at %></p>
+	 	<p>Transaction Date: <%= @account.updated_at.strftime("%B %d, %Y  %I:%M:%S %P") %></p>
 		<p>Account Number: <%= @account.id  %></p>
 		<p>Account Type: <%= @account.account_type %></p>
 		<p>Transaction Type: <%= @transaction %></p>
