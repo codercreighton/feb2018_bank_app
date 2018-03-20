@@ -76,22 +76,36 @@ class AccountsController < ApplicationController
     from_current_balance = @from_account.balance
     to_current_balance = @to_account.balance
     overdraft = false
+    same_account = false
 
 
     if params[:balance].to_f > from_current_balance
       overdraft = true
     else 
-      @from_account.update(balance: from_current_balance - params[:balance].to_f)
-      @to_account.update(balance: to_current_balance + params[:balance].to_f )
-    end    
+      if @from_account.id == @to_account.id
+        same_account = true
+      else  
+        @from_account.update(balance: from_current_balance - params[:balance].to_f)
+        @to_account.update(balance: to_current_balance + params[:balance].to_f )
+      end
+    end 
 
-    if overdraft == true
+  puts "--------------------------"
+  puts @from_account.id
+  puts @to_account.id
+  puts same_account
+  puts "--------------------------"
+
+    if same_account == true
+      redirect_to root_path, notice: "The transfer from account can not be the same as the transfer to account. Please choose a different account to process the transaction."
+    elsif overdraft == true
       redirect_to root_path, notice: "Withdrawal amount of $#{'%.2f' % params[:balance]} exceeds the current balance of $#{from_current_balance}. Please enter a different amount."
     else 
-      # AccountMailer.transfer_email(current_user, @from_account, params[:transaction], params[:balance], current_balance).deliver_now
+      
+      AccountMailer.transfer_funds(current_user, @from_account, @to_account, params[:balance], from_current_balance, to_current_balance).deliver_now
+
 
       redirect_to root_path, notice: "Your transfer of $#{'%.2f' % params[:balance]} from account #{@from_account.id} to account #{@to_account.id} has been made." 
-
     end
   end  
 

@@ -1,0 +1,20 @@
+<h1>Thank you for banking at BankAndTrust.com, <%= @user.first_name %></h1>
+<p>
+  You have a new update to your account!  </p>
+
+ 	<div>
+	 	<h3>Your account info is as follows: </h3>
+	 	<p>Transaction Date: <%= @from_account.updated_at.strftime("%B %d, %Y  %I:%M:%S %P") %></p>
+	 	<p>Transaction Type: <%= @transaction %></p>
+		<p>From Account Number: <%= @from_account.id  %> (<%= @from_account.account_type %>)</p>
+		<p>Previous Balance: <%= number_to_currency @from_prev_balance %></p>
+		<p>Amount of Transaction: <%= number_to_currency @amount %></p>
+		<p>To Account Number: <%= @to_account.id %> (<%=  @to_account.account_type %>) </p>
+		<p>Previous Balance: <%= number_to_currency @to_prev_balance %></p>
+		<h3>Current Balances:</h3>
+		<p>Account Number <%= @from_account.id %>: <%= number_to_currency @from_account.balance %></p>
+		<p>Account Number <%= @to_account.id %>: <%= number_to_currency @to_account.balance %></p>
+	</div>
+<p>To view more info, please visit your banking Dashboard at <%= @url %>. We look forward to doing business with you!</p>
+
+
